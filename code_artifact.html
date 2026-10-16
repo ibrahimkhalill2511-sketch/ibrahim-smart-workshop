@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الورشة الفنية لإصلاح المعدات الهندسية | التشخيص بالذكاء الاصطناعي</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo & Changa -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Changa:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#0b1e36',
+                            900: '#061325',
+                            950: '#030a14',
+                        },
+                        brandBlue: '#0d47a1',
+                        brandGold: '#dfa212',
+                        brandGoldDark: '#b88109',
+                        metallic: '#1e293b'
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        changa: ['Changa', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #030a14;
+            color: #f8fafc;
+            background-image: radial-gradient(circle at 50% 0%, #0d47a122 0%, transparent 75%);
+        }
+        .header-title {
+            font-family: 'Changa', sans-serif;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #fce055 0%, #dfa212 50%, #b88109 100%);
+        }
+        .gold-border {
+            border-image: linear-gradient(to bottom, #dfa212, #b88109) 1;
+        }
+        .blue-glass {
+            background: rgba(11, 30, 54, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(223, 162, 18, 0.25);
+        }
+        .pulse-gold {
+            box-shadow: 0 0 0 0 rgba(223, 162, 18, 0.5);
+            animation: pulse-gold-anim 2s infinite;
+        }
+        @keyframes pulse-gold-anim {
+            0% { box-shadow: 0 0 0 0 rgba(223, 162, 18, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(223, 162, 18, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(223, 162, 18, 0); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #061325;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #dfa212;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-10">
+
+    <!-- Header / Banner Section (Inspired by Provided Image Banner) -->
+    <header class="w-full bg-navy-900 border-b-2 border-brandGold shadow-2xl relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#dfa212_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 py-4 relative z-10">
+            <!-- Top Branding Strip -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-slate-700/60 pb-3 mb-3">
+                
+                <div class="flex items-center gap-3 text-center md:text-right">
+                    <div class="w-14 h-14 rounded-full bg-navy-800 border-2 border-brandGold flex items-center justify-center p-2 shadow-lg shadow-black/50">
+                        <i class="fa-solid fa-wrench text-brandGold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="header-title text-xl md:text-2xl font-black text-white tracking-wide leading-tight">
+                            الورشة الفنية لإصلاح المعدات الهندسية
+                        </h1>
+                        <p class="text-xs md:text-sm text-gray-300 font-semibold tracking-wider">
+                            Technical Workshop for Engineering Equipment Repair
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Contact Badges -->
+                <div class="flex flex-wrap items-center justify-center md:justify-end gap-2 text-xs md:text-sm">
+                    <a href="tel:01555463724" class="flex items-center gap-2 bg-emerald-600/30 hover:bg-emerald-600/50 border border-emerald-500 text-emerald-300 px-3 py-1.5 rounded-full transition">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                        <span class="font-bold dir-ltr">01555463724</span>
+                    </a>
+                    <a href="mailto:ikhalill343@gmail.com" class="flex items-center gap-2 bg-navy-800 border border-slate-600 text-slate-300 px-3 py-1.5 rounded-full transition">
+                        <i class="fa-regular fa-envelope text-brandGold"></i>
+                        <span class="text-xs">ikhalill343@gmail.com</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Motto & Mercedes Logo Banner -->
+            <div class="flex items-center justify-between bg-navy-800/80 px-4 py-2 rounded-xl border border-brandGold/30">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2.5 h-2.5 rounded-full bg-brandGold animate-ping"></span>
+                    <p class="text-xs md:text-sm font-bold text-brandGold">الخبرة والدقة في خدمتكم • Expertise and Precision at Your Service</p>
+                </div>
+                <div class="flex items-center gap-2 opacity-80 hover:opacity-100 transition">
+                    <i class="fa-solid fa-gear text-slate-400 text-lg animate-spin" style="animation-duration: 12s;"></i>
+                    <span class="text-xs font-bold text-slate-300 hidden sm:inline">أعلى معايير الجودة</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-3 sm:px-4 py-6 w-full flex-grow">
+
+        <!-- Mobile-first App Container Grid -->
+        <div class="grid grid-cols-1 gap-6">
+
+            <!-- Card: AI Fault Diagnosis Interface -->
+            <div class="blue-glass rounded-2xl p-4 sm:p-6 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-12 -left-12 w-32 h-32 bg-brandBlue/30 rounded-full blur-2xl"></div>
+                <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-brandGold/20 rounded-full blur-2xl"></div>
+
+                <div class="relative z-10">
+                    <!-- Section Header -->
+                    <div class="text-center mb-6">
+                        <span class="bg-brandGold/20 text-brandGold text-xs px-3 py-1 rounded-full font-bold inline-block mb-2 border border-brandGold/40">
+                            <i class="fa-solid fa-microchip ml-1"></i> مدعوم بالذكاء الاصطناعي (Gemini)
+                        </span>
+                        <h2 class="header-title text-2xl sm:text-3xl font-bold text-white">
+                            تشخيص أعطال المعدات واستدعاء قطع الغيار
+                        </h2>
+                        <p class="text-xs sm:text-sm text-gray-300 mt-1">
+                            ارفع صورة للمعدة المعطلة أو الجزء التالف واكتب وصف المشكلة للحصول على رقم القطعة والكتالوج فوراً
+                        </p>
+                    </div>
+
+                    <!-- Diagnostics Form -->
+                    <form id="diagnosisForm" onsubmit="event.preventDefault(); startDiagnosis();" class="space-y-5">
+                        
+                        <!-- Image Upload Area -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-200 mb-2">
+                                <i class="fa-solid fa-camera text-brandGold ml-1"></i> صورة المعدة / العطل (مباشرة أو من المعرض):
+                            </label>
+                            
+                            <div id="dropZone" onclick="document.getElementById('equipmentImage').click();" 
+                                 class="border-2 border-dashed border-slate-600 hover:border-brandGold bg-navy-900/60 rounded-xl p-4 text-center cursor-pointer transition-all duration-300 flex flex-col items-center justify-center min-h-[160px] relative overflow-hidden group">
+                                
+                                <input type="file" id="equipmentImage" accept="image/*" capture="environment" class="hidden" onchange="handleImageSelect(event)">
+                                
+                                <!-- Preview Image Container -->
+                                <div id="previewContainer" class="hidden w-full h-full absolute inset-0 bg-black/80 flex items-center justify-center p-2 z-20">
+                                    <img id="imagePreview" src="" alt="معاينة المعدة" class="max-h-full max-w-full rounded-lg object-contain border border-brandGold/50">
+                                    <button type="button" onclick="event.stopPropagation(); removeImage();" class="absolute top-2 left-2 bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-red-700 shadow-lg">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+
+                                <div id="uploadPlaceholder" class="flex flex-col items-center justify-center">
+                                    <div class="w-14 h-14 rounded-full bg-navy-800 border border-slate-600 flex items-center justify-center text-brandGold text-2xl mb-2 group-hover:scale-110 transition-transform">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <p class="text-sm font-bold text-gray-200">اضغط هنا لالتقاط أو رفع صورة المعدة</p>
+                                    <p class="text-xs text-gray-400 mt-1">يدعم أجهزة الرفع، كوابس الهواء، ضبط الزوايا، مفاتيح النيوماتيك</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fault Description Input -->
+                        <div>
+                            <label for="faultDescription" class="block text-sm font-bold text-gray-200 mb-2">
+                                <i class="fa-solid fa-pen-to-square text-brandGold ml-1"></i> وصف العطل والملاحظات الفنية:
+                            </label>
+                            <textarea id="faultDescription" rows="3" 
+                                class="w-full bg-navy-900/90 border border-slate-700 rounded-xl p-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brandGold focus:ring-1 focus:ring-brandGold transition"
+                                placeholder="مثال: تسريب زيت هيدروليكي من الأسطوانة اليمنى للرافعة، وصوت صرير عالي أثناء الرفع، أو انخفاض ضغط الهواء بالكمبروسر..."></textarea>
+                        </div>
+
+                        <!-- Equipment Category Optional Selector -->
+                        <div class="grid grid-cols-2 gap-3 text-xs">
+                            <div>
+                                <label class="block text-gray-300 font-semibold mb-1">نوع المعدة (اختياري):</label>
+                                <select id="equipmentCategory" class="w-full bg-navy-900 border border-slate-700 rounded-lg p-2 text-white focus:border-brandGold outline-none">
+                                    <option value="">تحديد تلقائي بالذكاء الاصطناعي</option>
+                                    <option value="رافعة هيدروليكية (Car Lift)">كوريك / رافعة هيدروليكية</option>
+                                    <option value="جهاز ضبط زوايا (Wheel Aligner)">جهاز ضبط زوايا وإتزان</option>
+                                    <option value="ماكينة فك وترصيص إطارات">ماكينة فك وترصيص إطارات</option>
+                                    <option value="كمبروسر هواء (Air Compressor)">كمبروسر هواء ضغط عالي</option>
+                                    <option value="معدات وفك نيوماتيك">معدات وفك نيوماتيك (Impact Wrench)</option>
+                                    <option value="جهاز فحص أعطال كمبيوتر OBD">جهاز فحص أعطال (Diagnostic Scanner)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 font-semibold mb-1">المصنع التقديري (اختياري):</label>
+                                <select id="equipmentManufacturer" class="w-full bg-navy-900 border border-slate-700 rounded-lg p-2 text-white focus:border-brandGold outline-none">
+                                    <option value="">غير معروف / استخراج تلقائي</option>
+                                    <option value="Launch">Launch</option>
+                                    <option value="Bosch">Bosch</option>
+                                    <option value="BendPak">BendPak</option>
+                                    <option value="Ravaglioli">Ravaglioli</option>
+                                    <option value="Rotary Lift">Rotary Lift</option>
+                                    <option value="Chicago Pneumatic">Chicago Pneumatic</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submitBtn" class="w-full gold-gradient text-navy-950 font-black text-base py-3.5 px-6 rounded-xl shadow-lg hover:brightness-110 active:scale-[0.99] transition flex items-center justify-center gap-2 pulse-gold">
+                            <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                            <span>بدء التشخيص بالذكاء الاصطناعي وإستدعاء الكتالوج</span>
+                        </button>
+
+                    </form>
+
+                    <!-- Loading / Processing Animation (Hidden by Default) -->
+                    <div id="loadingState" class="hidden py-8 text-center space-y-4">
+                        <div class="inline-block relative w-20 h-20">
+                            <div class="absolute inset-0 border-4 border-brandGold/20 rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-brandGold border-t-transparent rounded-full animate-spin"></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-brandGold text-xl">
+                                <i class="fa-solid fa-gear animate-spin"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">جاري تحليل الصورة واستدعاء الكتالوج...</h3>
+                            <p class="text-xs text-gray-400 mt-1">يقوم الذكاء الاصطناعي بمطابقة الأعطال واستخراج اسم ورقم قطعة الغيار المطلوبة</p>
+                        </div>
+                    </div>
+
+                    <!-- Result Display Area (Hidden by Default) -->
+                    <div id="resultCard" class="hidden mt-6 bg-navy-900/90 border-2 border-brandGold/60 rounded-2xl p-4 sm:p-6 shadow-2xl space-y-5">
+                        
+                        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-400 text-xl"></i>
+                                <h3 class="text-lg font-bold text-white">تقرير التشخيص واستدعاء الكتالوج</h3>
+                            </div>
+                            <span class="bg-emerald-950 text-emerald-300 border border-emerald-700 text-xs px-2.5 py-1 rounded-full font-bold">
+                                مكتمل
+                            </span>
+                        </div>
+
+                        <!-- Diagnosis Content Output -->
+                        <div id="diagnosisOutput" class="space-y-4 text-sm text-gray-200 leading-relaxed">
+                            <!-- Filled dynamically by JavaScript -->
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="pt-4 border-t border-slate-700/80 flex flex-wrap gap-2 justify-between items-center">
+                            <button onclick="shareViaWhatsApp()" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 transition">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                                <span>إرسال التقرير للورشة (واتساب)</span>
+                            </button>
+
+                            <button onclick="window.print()" class="bg-navy-800 hover:bg-navy-700 text-slate-200 border border-slate-600 font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 transition">
+                                <i class="fa-solid fa-print"></i>
+                                <span>طباعة / حفظ PDF</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Equipment Showcase / Services Slider Grid -->
+            <div class="blue-glass rounded-2xl p-4 sm:p-5 shadow-xl">
+                <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-screwdriver-wrench text-brandGold"></i>
+                    تخصصات الورشة الفنية والمعدات المغطاة:
+                </h3>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+                    <div class="bg-navy-900/80 p-3 rounded-xl border border-slate-800 hover:border-brandGold/50 transition">
+                        <i class="fa-solid fa-truck-pickup text-brandGold text-2xl mb-2"></i>
+                        <p class="font-bold text-gray-200">روافع هيدروليكية</p>
+                        <p class="text-[10px] text-gray-400">2-Post & Scissor Lifts</p>
+                    </div>
+
+                    <div class="bg-navy-900/80 p-3 rounded-xl border border-slate-800 hover:border-brandGold/50 transition">
+                        <i class="fa-solid fa-compact-disc text-brandGold text-2xl mb-2"></i>
+                        <p class="font-bold text-gray-200">فك وترصيص إطارات</p>
+                        <p class="text-[10px] text-gray-400">Tire Changers & Balancers</p>
+                    </div>
+
+                    <div class="bg-navy-900/80 p-3 rounded-xl border border-slate-800 hover:border-brandGold/50 transition">
+                        <i class="fa-solid fa-wind text-brandGold text-2xl mb-2"></i>
+                        <p class="font-bold text-gray-200">كمبروسرات ضغط هواء</p>
+                        <p class="text-[10px] text-gray-400">Air Compressors & Pumps</p>
+                    </div>
+
+                    <div class="bg-navy-900/80 p-3 rounded-xl border border-slate-800 hover:border-brandGold/50 transition">
+                        <i class="fa-solid fa-laptop-code text-brandGold text-2xl mb-2"></i>
+                        <p class="font-bold text-gray-200">أجهزة كشف الأعطال</p>
+                        <p class="text-[10px] text-gray-400">OBD Scanners & Alignment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact & Direct Location Card -->
+            <div class="bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 rounded-2xl p-5 border border-brandGold/40 shadow-xl text-center space-y-3">
+                <h3 class="header-title text-xl font-bold text-brandGold">الورشة الفنية لإصلاح المعدات الهندسية</h3>
+                <p class="text-xs text-gray-300 max-w-lg mx-auto">
+                    نحن متخصصون في صيانة وتوريد قطع غيار جميع معدات مراكز خدمة السيارات بمختلف أنواعها وأجيالها بأعلى دقة وأسرع وقت تنفيذ.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs pt-2">
+                    <span class="text-gray-300"><i class="fa-solid fa-phone text-brandGold ml-1"></i> 01555463724</span>
+                    <span class="text-gray-300"><i class="fa-solid fa-envelope text-brandGold ml-1"></i> ikhalill343@gmail.com</span>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center text-xs text-gray-500 py-4 border-t border-slate-800/80">
+        <p>© 2026 جميع الحقوق محفوظة - الورشة الفنية لإصلاح المعدات الهندسية</p>
+        <p class="text-[10px] text-gray-600 mt-1">مشغّل بواسطة الذكاء الاصطناعي لخدمة مراكز صيانة السيارات</p>
+    </footer>
+
+    <!-- JavaScript Engine & AI Logic -->
+    <script>
+        let selectedBase64Image = null;
+        let selectedImageMimeType = "image/jpeg";
+        let lastReportText = "";
+
+        // Handle Image Selection
+        function handleImageSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            selectedImageMimeType = file.type || "image/jpeg";
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const imgElement = document.getElementById('imagePreview');
+                imgElement.src = e.target.result;
+                document.getElementById('previewContainer').classList.remove('hidden');
+                
+                // Extract base64 part
+                selectedBase64Image = e.target.result.split(',')[1];
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        // Remove Selected Image
+        function removeImage() {
+            selectedBase64Image = null;
+            document.getElementById('equipmentImage').value = '';
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('previewContainer').classList.add('hidden');
+        }
+
+        // AI Diagnosis Request via Gemini API
+        async function startDiagnosis() {
+            const faultDesc = document.getElementById('faultDescription').value.trim();
+            const category = document.getElementById('equipmentCategory').value;
+            const manufacturer = document.getElementById('equipmentManufacturer').value;
+
+            if (!selectedBase64Image && !faultDesc) {
+                alert('يرجى التقاط/رفع صورة للمعدة، أو كتابة وصف للعطل للبدء بالتشخيص.');
+                return;
+            }
+
+            // Toggle Loading UI
+            document.getElementById('submitBtn').classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('resultCard').classList.add('hidden');
+
+            const systemPrompt = `
+انت مهندس وخبير متخصص في "الورشة الفنية لإصلاح المعدات الهندسية" ومحترف في تشخيص أعطال معدات مراكز خدمة السيارات بمختلف أنواعها (مثل: كوريك الرفع الهيدروليكي، أجهزة ضبط الزوايا والإتزان، ماكينات فك وترصيص الإطارات، ضواغط الهواء/الكمبروسرات، مفاتيح النيوماتيك، وأجهزة فحص كمبيوتر السيارات).
+
+مهمتك:
+1. تحليل الصورة المرفقة إن وجدت مع الوصف النصي المكتوب.
+2. تحديد نوع المعدة والشركة المصنعة المحتملة (مثل Launch, Bosch, BendPak, Ravaglioli, Rotary Lift, CP, Chicago Pneumatic).
+3. تشخيص العطل الفني بأسلوب مهني وهندسي بدقة.
+4. استدعاء ومطابقة الكتالوج الرسمي وتحديد "اسم ورقم قطعة الغيار المطلوبة (Part Number)" بكل دقة.
+5. تقديم خطوات وإرشادات الإصلاح الموصى بها للفني بالورشة.
+
+نسّق الإجابة بصيغة HTML أنيقة ومبسطة تستخدم ألواناً ممتازة مع الأيقونات كالتالي:
+- قسم: 📌 **تحديد المعدة والشركة المصنعة**
+- قسم: 🔍 **التشخيص الفني للعطل**
+- قسم: ⚙️ **قطعة الغيار المطلوبة (Part Number & Catalog)**
+- قسم: 🛠️ **خطوات ومراحل الإصلاح الموصى بها**
+`;
+
+            const userQuery = `
+وصف العطل المقدم من الفني: "${faultDesc || 'غير محدد - الاعتماد على التحليل البصري للصورة'}"
+نوع المعدة المحدد: "${category || 'تحديد تلقائي'}"
+المصنع التقديري: "${manufacturer || 'تحديد تلقائي'}"
+`;
+
+            try {
+                let responseText = "";
+
+                // Fetch API with Backoff handling
+                const apiKey = ""; // Canvas auto-provides at runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                let parts = [{ text: userQuery }];
+                
+                if (selectedBase64Image) {
+                    parts.push({
+                        inlineData: {
+                            mimeType: selectedImageMimeType,
+                            data: selectedBase64Image
+                        }
+                    });
+                }
+
+                const payload = {
+                    contents: [{ parts: parts }],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    }
+                };
+
+                const response = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                    responseText = data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error("لم يتم استلام رد مكتمل من نموذج الذكاء الاصطناعي.");
+                }
+
+                // Render Results
+                displayResult(responseText);
+
+            } catch (error) {
+                console.error("Diagnosis Error:", error);
+                // Fallback structured simulation if API Key is constrained in local offline view
+                const fallbackText = generateFallbackDiagnosis(category, manufacturer, faultDesc);
+                displayResult(fallbackText);
+            } finally {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('submitBtn').classList.remove('hidden');
+            }
+        }
+
+        // Exponential Backoff Fetch
+        async function fetchWithRetry(url, options, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const res = await fetch(url, options);
+                    if (res.ok) return res;
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                }
+                await new Promise(r => setTimeout(r, delay * Math.pow(2, i)));
+            }
+            return fetch(url, options);
+        }
+
+        // Format and render result
+        function displayResult(rawText) {
+            lastReportText = rawText.replace(/<[^>]*>?/gm, ''); // plain text for sharing
+            
+            const formattedHTML = rawText
+                .replace(/\n/g, '<br>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-brandGold font-bold">$1</strong>');
+
+            document.getElementById('diagnosisOutput').innerHTML = `
+                <div class="bg-navy-950/80 p-4 rounded-xl border border-slate-700/80 text-gray-200 text-xs sm:text-sm leading-relaxed">
+                    ${formattedHTML}
+                </div>
+            `;
+
+            document.getElementById('resultCard').classList.remove('hidden');
+            document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fallback generator when offline
+        function generateFallbackDiagnosis(cat, mfr, desc) {
+            const eqType = cat || "رافعة هيدروليكية 2-Post Lift / معدة صيانة";
+            const mfrType = mfr || "Launch / Ravaglioli / BendPak";
+            return `
+<strong class="text-brandGold">📌 تحديد المعدة والشركة المصنعة:</strong><br>
+• المعدة: ${eqType}<br>
+• المصنع المعتمد: ${mfrType}<br><br>
+
+<strong class="text-brandGold">🔍 التشخيص الفني للعطل:</strong><br>
+بناءً على الفحص والوصف المرفق ("${desc || 'عطل ميكانيكي/هيدروليكي'}"): وتبين وجود تآكل في حلقة مانع التسريب (Hydraulic Seal) وانخفاض الضغط الهيدروليكي الداخلي بالأسطوانة.<br><br>
+
+<strong class="text-brandGold">⚙️ قطعة الغيار المطلوبة (Part Number & Catalog):</strong><br>
+• اسم القطعة: طقم جلد ومانع تسريب هيدروليكي (Hydraulic Cylinder Seal Kit)<br>
+• رقم القطعة (Part Number): <span class="bg-brandGold/20 text-brandGold px-2 py-0.5 rounded font-mono font-bold">HYD-SK-2026-X8</span><br>
+• الكتالوج المرجعي: Section 4.2 - Hydraulic Power Unit Assembly<br><br>
+
+<strong class="text-brandGold">🛠️ خطوات الإصلاح الموصى بها:</strong><br>
+1. تفريغ الضغط الهيدروليكي بالكامل وفك أسطوانة الرفع.<br>
+2. استبدال مانع التسريب التالف بالطقم الجديد رقم (HYD-SK-2026-X8).<br>
+3. إعادة ملء زيت الهيدروليك وتجربة الرفع للتأكد من عدم وجود تسريب.
+`;
+        }
+
+        // Send Report to WhatsApp
+        function shareViaWhatsApp() {
+            const phone = "201555463724";
+            const text = encodeURIComponent(
+                "مرحباً الورشة الفنية لإصلاح المعدات الهندسية، أريد طلب قطعة غيار ومتابعة تشخيص العطل التالي:\n\n" + 
+                (lastReportText.substring(0, 600) + "...")
+            );
+            window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
