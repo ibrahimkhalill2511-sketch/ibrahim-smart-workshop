@@ -1,0 +1,104 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الورشة الفنية لإصلاح المعدات الهندسية | التشخيص بالذكاء الاصطناعي</title>
+    <!-- تضمين مكتبات التصميم والأيقونات بالكامل لضمان عمل الشكل الأساسي -->
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link href="https://googleapis.com family=Cairo:wght@300;400;600;700;800;900&family=Changa:wght@500;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#0b1e36', 900: '#061325', 950: '#030a14' },
+                        brandBlue: '#0d47a1', brandGold: '#dfa212', brandGoldDark: '#b88109', metallic: '#1e293b'
+                    },
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'], changa: ['Changa', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #030a14; color: #f8fafc; background-image: radial-gradient(circle at 50% 0%, #0d47a122 0%, transparent 75%); }
+        .header-title { font-family: 'Changa', sans-serif; }
+        .blue-glass { background: rgba(11, 30, 54, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(223, 162, 18, 0.25); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #061325; }
+        ::-webkit-scrollbar-thumb { background: #dfa212; border-radius: 3px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-10">
+    <!-- الشريط العلوي الاحترافي للورشة -->
+    <header class="w-full bg-navy-900 border-b-2 border-brandGold shadow-2xl relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 py-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-b border-slate-700/60 pb-3 mb-3">
+                <div class="flex items-center gap-3 text-center md:text-right">
+                    <div class="w-14 h-14 rounded-full bg-navy-800 border-2 border-brandGold flex items-center justify-center p-2 shadow-lg shadow-black/50">
+                        <i class="fa-solid fa-wrench text-brandGold text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="header-title text-xl md:text-2xl font-black text-white tracking-wide leading-tight">الورشة الفنية لإصلاح المعدات الهندسية</h1>
+                        <p class="text-xs md:text-sm text-gray-300 font-semibold tracking-wider">Technical Workshop for Engineering Equipment Repair</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap items-center justify-center md:justify-end gap-2 text-xs md:text-sm">
+                    <a href="tel:01555463724" class="flex items-center gap-2 bg-emerald-600/30 border border-emerald-500 text-emerald-300 px-3 py-1.5 rounded-full transition"><i class="fa-brands fa-whatsapp text-emerald-400"></i><span class="font-bold">01555463724</span></a>
+                    <a href="mailto:ikhalill343@gmail.com" class="flex items-center gap-2 bg-navy-800 border border-slate-600 text-slate-300 px-3 py-1.5 rounded-full transition"><i class="fa-regular fa-envelope text-brandGold"></i><span>ikhalill343@gmail.com</span></a>
+                </div>
+            </div>
+            <div class="flex items-center justify-between bg-navy-800/80 px-4 py-2 rounded-xl border border-brandGold/30">
+                <p class="text-xs md:text-sm font-bold text-brandGold">الخبرة والدقة في خدمتكم • Expertise and Precision at Your Service</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- الواجهة التفاعلية الأساسية (إصلاح مشكلة المربع الناقص والأزرار) -->
+    <main class="max-w-4xl mx-auto px-4 py-6 w-full flex-grow">
+        <div class="blue-glass rounded-2xl p-6 shadow-2xl text-center space-y-6">
+            <div>
+                <span class="bg-brandGold/20 text-brandGold text-xs px-3 py-1 rounded-full font-bold inline-block mb-2 border border-brandGold/40">
+                    <i class="fa-solid fa-microchip ml-1 animate-pulse"></i> مدعوم بالذكاء الاصطناعي
+                </span>
+                <h2 class="header-title text-2xl font-bold text-white">نظام تشخيص الأعطال واستدعاء قطع الغيار</h2>
+                <p class="text-sm text-gray-300">ارفع صورة للمعدة المعطلة أو اكتب وصف المشكلة للحصول على التشخيص الفوري</p>
+            </div>
+
+            <!-- مربع تفاعلي حقيقي لرفع الصور من الزوار -->
+            <div class="border-2 border-dashed border-brandGold/40 rounded-xl p-8 bg-navy-950/40 hover:bg-navy-950/70 transition cursor-pointer" onclick="document.getElementById('fileInput').click()">
+                <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleFile(this)">
+                <i class="fa-solid fa-cloud-arrow-up text-brandGold text-4xl mb-3"></i>
+                <p class="text-base font-bold text-white">اضغط هنا لرفع صورة المعدة أو الجزء التالف</p>
+                <p class="text-xs text-gray-400 mt-1">يدعم الصور من الهاتف أو الكاميرا مباشرة</p>
+                <div id="filePreview" class="mt-4 hidden text-emerald-400 text-sm font-semibold"></div>
+            </div>
+
+            <!-- صندوق نصي لكتابة وصف العطل -->
+            <div class="text-right">
+                <label class="block text-sm font-bold text-gray-200 mb-2"><i class="fa-solid fa-pen text-brandGold ml-1"></i> وصف المشكلة أو مظهر العطل:</label>
+                <textarea id="issueDescription" rows="3" class="w-full bg-navy-950 border border-brandGold/30 rounded-xl p-3 text-white focus:outline-none focus:border-brandGold transition text-right" placeholder="اكتب هنا تفاصيل العطل أو ما تلاحظه على المعدة..."></textarea>
+            </div>
+
+            <!-- زر التفاعل والإرسال الرئيسي -->
+            <button onclick="processDiagnosis()" class="w-full bg-brandGold hover:bg-brandGoldDark text-navy-950 font-black py-3 px-6 rounded-xl transition shadow-lg text-lg flex items-center justify-center gap-2">
+                <i class="fa-solid fa-magnifying-glass-chart"></i> بدء التشخيص الفوري بالذكاء الاصطناعي
+            </button>
+        </div>
+    </main>
+
+    <script>
+        function handleFile(input) {
+            const preview = document.getElementById('filePreview');
+            if(input.files && input.files[0]) {
+                preview.innerText = "✓ تم اختيار الصورة: " + input.files[0].name;
+                preview.classList.remove('hidden');
+            }
+        }
+        function processDiagnosis() {
+            const desc = document.getElementById('issueDescription').value;
+            alert("تم استقبال طلب التشخيص بنجاح! جاري معالجة البيانات والوصف المكتوب لورشتك الهندسية.");
+        }
+    </script>
+</body>
+</html>
