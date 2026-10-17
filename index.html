@@ -1,0 +1,136 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الورشة الفنية لإصلاح المعدات الهندسية | التشخيص بالذكاء الاصطناعي</title>
+    <!-- تضمين المكتبات والأيقونات كاملة لضمان عمل الشكل والخطوط -->
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#0b1e36', 900: '#061325', 950: '#030a14' },
+                        brandBlue: '#0d47a1', brandGold: '#dfa212', brandGoldDark: '#b88109', metallic: '#1e293b'
+                    },
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'], changa: ['Changa', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #030a14; 
+            color: #f8fafc; 
+            /* وضع الصورة التي تظهر فريق العمل كخلفية ثابتة وممتدة للموقع بالكامل مع طبقة معتمة لحفظ جمال النصوص */
+            background-image: linear-gradient(180deg, rgba(3, 10, 20, 0.91) 0%, rgba(11, 12, 16, 0.95) 100%), url('image_lkxYe8.png');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+        }
+        .header-title { font-family: 'Changa', sans-serif; }
+        /* تصميم زجاجي داكن وأنيق للأقسام لضمان مظهر احترافي فخم ومتناسق مع الخلفية */
+        .dark-glass { background: rgba(15, 22, 32, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .gold-glow { border: 1px solid rgba(223, 162, 18, 0.25); box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #061325; }
+        ::-webkit-scrollbar-thumb { background: #dfa212; border-radius: 3px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-10">
+
+    <!-- الهيدر واللافتة العلوية للورشة بهوية SNA الحصرية -->
+    <header class="w-full bg-black/40 border-b border-brandGold/30 shadow-2xl relative overflow-hidden backdrop-blur-md">
+        <div class="max-w-5xl mx-auto px-4 py-5 relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3 text-center md:text-right">
+                <div class="w-14 h-14 rounded-full bg-brandGold/10 border border-brandGold/40 flex items-center justify-center p-2 text-brandGold shadow-lg">
+                    <i class="fa-solid fa-wrench text-2xl animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="header-title text-xl md:text-2xl font-black text-white tracking-wide leading-tight">الورشة الفنية لإصلاح المعدات الهندسية (SNA)</h1>
+                    <p class="text-xs text-brandGold font-bold tracking-widest mt-1">THE FUTURE IS YOURS, WELCOME TO SNA</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center md:justify-end gap-2 text-xs md:text-sm">
+                <a href="tel:01555463724" class="flex items-center gap-2 bg-emerald-600/20 border border-emerald-500/40 text-emerald-300 px-3 py-1.5 rounded-full transition hover:bg-emerald-600/30">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
+                    <span class="font-bold">01555463724</span>
+                </a>
+                <a href="mailto:ikhalill343@gmail.com" class="flex items-center gap-2 bg-slate-800/40 border border-slate-700/60 text-slate-300 px-3 py-1.5 rounded-full transition">
+                    <i class="fa-regular fa-envelope text-brandGold"></i>
+                    <span>ikhalill343@gmail.com</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- واجهة التطبيق التفاعلية المركزية لرفع الصور والتشخيص الذكي للزوار -->
+    <main class="max-w-4xl mx-auto px-3 sm:px-4 py-6 w-full flex-grow">
+        <div class="dark-glass gold-glow rounded-3xl p-5 sm:p-7 space-y-6">
+            <div class="text-center space-y-1">
+                <span class="bg-brandGold/10 text-brandGold text-xs px-3 py-1.5 rounded-full font-bold border border-brandGold/30 inline-block shadow-inner">
+                    <i class="fa-solid fa-microchip ml-1 animate-pulse"></i> مدعوم بالذكاء الاصطناعي (Gemini)
+                </span>
+                <h2 class="header-title text-2xl font-bold text-white">تشخيص أعطال المعدات واستدعاء قطع الغيار</h2>
+                <p class="text-xs text-gray-300">ارفع صورة للمعدة المعطلة أو التالفة واكتب وصف المشكلة للحصول على رقم القطعة والكتالوج فوراً</p>
+            </div>
+
+            <!-- نموذج الفحص واستلام الملفات من الزوار -->
+            <form onsubmit="event.preventDefault(); startLiveSnaDiagnosis();" class="space-y-5">
+                <!-- مربع تفاعلي حقيقي متطور لرفع الصور ومعاينتها -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-200 mb-2"><i class="fa-solid fa-camera text-brandGold ml-1"></i> صورة المعدة / العطل (مباشرة أو من المعرض):</label>
+                    <div onclick="document.getElementById('snaImageUpload').click()" class="border-2 border-dashed border-slate-700 hover:border-brandGold/50 rounded-2xl p-8 bg-black/40 hover:bg-black/60 transition cursor-pointer text-center group shadow-inner relative">
+                        <input type="file" id="snaImageUpload" class="hidden" accept="image/*" onchange="previewVisitorImage(this)">
+                        <div id="promptText">
+                            <i class="fa-solid fa-cloud-arrow-up text-slate-500 group-hover:text-brandGold text-4xl mb-3 transition"></i>
+                            <p class="text-sm font-bold text-white">اضغط هنا أو قم بسحب وصق الصورة مباشرة لتسليمها للنظام</p>
+                            <p class="text-xs text-slate-400 mt-1">يدعم أجهزة الرفع، كوابس الهواء، ضبط الزوايا، ومفاتيح النيوماتيك</p>
+                        </div>
+                        <!-- حاوية عرض الصورة المرفوعة -->
+                        <div id="previewContainer" class="hidden flex flex-col items-center justify-center space-y-2">
+                            <img id="imagePreviewSrc" class="max-h-52 rounded-xl border border-slate-700 shadow-xl">
+                            <span id="uploadStatus" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1 rounded-full font-bold"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الخيارات الإضافية المدخلة من الزائر لمطابقة الكتالوج -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-right">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-200 mb-2"><i class="fa-solid fa-layer-group text-brandGold ml-1"></i> نوع المعدة المصورة:</label>
+                        <select id="equipmentType" class="w-full bg-[#061325]/90 border border-slate-800 rounded-xl p-3 text-white text-xs sm:text-sm focus:border-brandGold focus:outline-none">
+                            <option value="lift">كوريك / رافعة هيدروليكية</option>
+                            <option value="align">جهاز ضبط زوايا وإتزان</option>
+                            <option value="tire">ماكينة فك وترصيص إطارات</option>
+                            <option value="compressor">كمبروسر هواء ضغط عالي</option>
+                            <option value="wrench">معدات وفك نيوماتيك (Impact Wrench)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-200 mb-2"><i class="fa-solid fa-industry text-brandGold ml-1"></i> المصنع التقديري للمعدة:</label>
+                        <select id="brandType" class="w-full bg-[#061325]/90 border border-slate-800 rounded-xl p-3 text-white text-xs sm:text-sm focus:border-brandGold focus:outline-none">
+                            <option value="auto">استخراج وتحديد تلقائي بالذكاء الاصطناعي</option>
+                            <option value="bosch">بوش (Bosch)</option>
+                            <option value="bendpak">بيند باك (BendPak)</option>
+                            <option value="rotary">روتاري (Rotary Lift)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <label class="block text-sm font-bold text-gray-200 mb-2"><i class="fa-solid fa-pen-to-square text-brandGold ml-1"></i> وصف العطل والملاحظات الفنية الملاحظة:</label>
+                    <textarea id="issueNotes" rows="3" class="w-full bg-[#061325]/90 border border-slate-800 rounded-xl p-3 text-white text-sm text-right focus:border-brandGold focus:outline-none" placeholder="اكتب هنا تفاصيل العطل أو الصوت الملاحظ في المعدة لمساعد الذكاء الاصطناعي..."></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full bg-brandGold hover:bg-brandGoldDark text-black font-black py-3.5 px-6 rounded-xl transition shadow-xl text-base flex items-center justify-center gap-2 transform hover:scale-[1.01]">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> بدء التشخيص بالذكاء الاصطناعي وإستدعاء الكتالوج
+                </button>
+            </form>
+
+            <!-- 🛠️ صندوق عرض تقارير التشخيص، الكتالوج، وقطع الغيار (يظهر تفاعلياً وبشكل آلي بعد الضغط) -->
+            <div id="aiResultBox" class="hidden space-y-5 pt-4 border-t border-slate-800">
