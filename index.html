@@ -1,0 +1,137 @@
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNA Workshop | نظام التشخيص الذكي وقطع الغيار</title>
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cloudflare.com">
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 800: '#0b1e36', 900: '#061325', 950: '#030a14' },
+                        brandBlue: '#0d47a1', brandGold: '#dfa212', brandGoldDark: '#b88109', metallic: '#1e293b'
+                    },
+                    fontFamily: { cairo: ['Cairo', 'sans-serif'], changa: ['Changa', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #0b0c10; 
+            color: #f8fafc; 
+            /* إضافة الخلفية الداكنة المستوحاة من الصورة ومحاكاة مظهر جدار SNA المعتم */
+            background-image: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(11, 12, 16, 0.98) 100%), radial-gradient(circle at 50% 30%, #0d47a115 0%, transparent 60%);
+        }
+        .header-title { font-family: 'Changa', sans-serif; }
+        .dark-glass { background: rgba(22, 28, 36, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .gold-glow { border: 1px solid rgba(223, 162, 18, 0.35); box-shadow: 0 0 15px rgba(223, 162, 18, 0.1); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0c10; }
+        ::-webkit-scrollbar-thumb { background: #dfa212; border-radius: 3px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between pb-10">
+
+    <!-- الهيدر الاحترافي بهوية SNA وشعار مرسيدس المستوحى من الخلفية المرفوعة -->
+    <header class="w-full bg-[#111318] border-b border-brandGold/40 shadow-2xl relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 py-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4 text-center md:text-right">
+                <div class="w-16 h-14 bg-black/40 border border-slate-700 rounded-lg flex items-center justify-center p-1 text-slate-300">
+                    <!-- محاكاة دائرية لشعار مرسيدس المعدني -->
+                    <i class="fa-regular fa-compass text-3xl text-slate-100 animate-spin" style="animation-duration: 20s;"></i>
+                </div>
+                <div>
+                    <h1 class="header-title text-2xl md:text-3xl font-black text-white tracking-wide leading-tight">THE FUTURE IS YOURS, WELCOME TO SNA.</h1>
+                    <p class="text-xs md:text-sm text-brandGold font-bold tracking-widest mt-1">الورشة الفنية لإصلاح المعدات الهندسية وميكانيكا مرسيدس</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 bg-black/30 border border-slate-800 px-4 py-2 rounded-full text-xs">
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-lg"></i>
+                <span class="font-bold text-gray-200">الدعم الفني المباشر: 01555463724</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- الواجهة التفاعلية المركزية لإرسال البيانات للذكاء الاصطناعي ومحاكاة جلب الكتالوجات -->
+    <main class="max-w-4xl mx-auto px-4 py-8 w-full flex-grow">
+        <div class="dark-glass gold-glow rounded-3xl p-6 sm:p-8 space-y-6 relative">
+            <div class="text-center space-y-2">
+                <span class="bg-brandGold/10 text-brandGold text-xs px-3 py-1 rounded-full font-bold border border-brandGold/30 inline-block">
+                    <i class="fa-solid fa-brain ml-1"></i> وحدة معالجة وتشخيص الصور الذكية
+                </span>
+                <h2 class="header-title text-2xl sm:text-3xl font-extrabold text-white">الاستدعاء الفني التلقائي لقطع الغيار وطرق الإصلاح</h2>
+                <p class="text-xs sm:text-sm text-gray-400">نظام ذكاء اصطناعي تفاعلي يستلم صور المعدات، يحدد العطل، يسحب رقم الكتالوج، ويستعرض البدائل فورا</p>
+            </div>
+
+            <!-- نموذج رفع الصورة ومعالجة التفاعل للزوار -->
+            <form id="snaForm" onsubmit="event.preventDefault(); triggerAiSimulation();" class="space-y-6">
+                <!-- مربع السحب والإفلات التفاعلي والذكي لرفع الصور -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2"><i class="fa-solid fa-image text-brandGold ml-1"></i> تحميل صورة العطل أو الجزء الهندسي المراد فحصه:</label>
+                    <div id="uploadBox" onclick="document.getElementById('snaFileInput').click()" class="border-2 border-dashed border-slate-700 hover:border-brandGold/60 rounded-2xl p-8 bg-black/20 hover:bg-black/40 transition cursor-pointer text-center relative group">
+                        <input type="file" id="snaFileInput" class="hidden" accept="image/*" onchange="displayUploadedImage(this)">
+                        <div id="uploadPrompt">
+                            <i class="fa-solid fa-camera-retro text-slate-500 group-hover:text-brandGold text-4xl mb-3 transition"></i>
+                            <p class="text-sm font-bold text-white">اضغط هنا أو قم بسحب الصورة مباشرة لتسليمها للنظام</p>
+                            <p class="text-xs text-slate-400 mt-1">سيقوم الذكاء الاصطناعي بقراءة أبعاد التلف والتشخيص</p>
+                        </div>
+                        <!-- حاوية معاينة وتأكيد الرفع -->
+                        <div id="previewArea" class="hidden flex flex-col items-center justify-center space-y-2">
+                            <img id="previewImg" class="max-h-52 rounded-xl border border-slate-700 shadow-xl">
+                            <span id="statusBadge" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1 rounded-full font-bold"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- مدخل بيانات إضافي للزوار لزيادة دقة الفحص الهندسي -->
+                <div class="text-right">
+                    <label class="block text-sm font-bold text-gray-300 mb-2"><i class="fa-solid fa-receipt text-brandGold ml-1"></i> اكتب الأعراض الملاحظة أو كود الفحص الرقمي (إن وجد):</label>
+                    <textarea id="issueNotes" rows="3" class="w-full bg-[#111318] border border-slate-800 rounded-xl p-3 text-white focus:outline-none focus:border-brandGold transition text-right text-sm" placeholder="مثال: سماع صوت احتكاك معدني عند الدوران، ظهور ضوء التحذير الأحمر، إلخ..."></textarea>
+                </div>
+
+                <!-- زر التشخيص ومعالجة البيانات والربط الفني -->
+                <button type="submit" id="submitBtn" class="w-full bg-brandGold hover:bg-brandGoldDark text-black font-black py-4 px-6 rounded-xl transition shadow-xl text-base sm:text-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> تسليم الصورة وتشغيل الذكاء الاصطناعي للتشخيص
+                </button>
+            </form>
+
+            <!-- 🛠️ شاشة عرض نتائج الكتالوج وقطع الغيار المقترحة وطريقة الإصلاح (تظهر تفاعلياً بعد الضغط) -->
+            <div id="diagnosisResult" class="hidden space-y-6 pt-4 border-t border-slate-800">
+                <div class="bg-blue-950/30 border border-brandBlue/40 rounded-2xl p-4 flex items-center gap-3 text-right">
+                    <i class="fa-solid fa-circle-notch text-brandGold text-2xl animate-spin"></i>
+                    <div>
+                        <h4 class="text-white font-bold text-base">تم سحب كتالوج المعدة بنجاح</h4>
+                        <p class="text-xs text-gray-400">تم الربط مع خوادم قطع غيار مرسيدس وSNA الهندسية لاستخراج البيانات</p>
+                    </div>
+                </div>
+
+                <!-- تفاصيل تشخيص العطل المقترح وطريقة الإصلاح -->
+                <div class="bg-[#111318] border border-slate-800 rounded-2xl p-5 space-y-4 text-right">
+                    <h3 class="text-brandGold font-bold text-lg border-b border-slate-800 pb-2"><i class="fa-solid fa-screwdriver-wrench ml-1"></i> تقرير تشخيص العطل الفني (AI Diagnosis)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-slate-400 block">العطل المكتشف في الصورة:</span>
+                            <p class="text-white font-semibold">تأكل كلي في جلب ومساعدين التوجيه الهيدروليكي الأمامي.</p>
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-slate-400 block">خطورة الحالة الفنية:</span>
+                            <p class="text-rose-400 font-semibold">متوسطة - يستلزم التدخل السريع لمنع تضرر عمود الكردان.</p>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <span class="text-xs font-bold text-slate-400 block mb-1">خطوات وطريقة الإصلاح المعتمدة هندسياً:</span>
+                        <ol class="list-decimal list-inside text-xs text-gray-400 space-y-1 pr-1">
+                            <li>قم بفك صامولة التثبيت الرئيسية وعزل خط الهيدروليك بحرص.</li>
+                            <li>استخدم المكبس الهيدروليكي لسحب القطعة التالفة المتأكلة خارج بيت التثبيت.</li>
+                            <li>نظف المجرى جيداً من الشوائب المعدنية قبل تركيب القطعة البديلة الجديدة رقم (A2123230) الموضحة بالأسفل.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- كارت استعراض صورة قطعة الغيار ورقمها واسمها بالكامل -->
